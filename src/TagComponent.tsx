@@ -1,27 +1,26 @@
-import React from 'react';
+import * as React from 'react';
+import * as XSVG from "../../../images/icons/16x16/interface cross.svg";
 
-const { PropTypes } = React;
+export interface Tag {
+  title: string;
+  category: string;
+}
 
-const Tag = React.createClass({
-  propTypes: {
-    selected: PropTypes.bool,
-    input: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    addable: PropTypes.bool,
-    deletable: PropTypes.bool,
-    onAdd: PropTypes.func,
-    onDelete: PropTypes.func,
-    style: PropTypes.object
-  },
+interface TagComponentProps {
+  selected?: boolean;
+  input: string;
+  text: string;
+  addable?: boolean;
+  deletable: boolean;
+  onAdd?: (e: any) => void;
+  onDelete?: Function;
+  style: any;
+}
 
-  // helps tests pass
-  getDefaultProps() {
-      return {
-          text: ''  
-      };
-  },
+class TagComponent extends React.Component<TagComponentProps, {}> {
+  static defaultProps: any;
 
-  tagContent() {
+  tagContent = () => {
     let content = [];
     let startIndex = this.props.text.trim().toLowerCase()
       .indexOf(this.props.input.trim().toLowerCase());
@@ -44,32 +43,30 @@ const Tag = React.createClass({
     }
 
     return content;
-  },
+  };
 
-  onClick(e) {
+  onClick = (e: any) => {
     e.preventDefault();
     if (this.props.addable) {
       this.props.onAdd(e);
     }
-  },
+  };
 
-  onDelete(e) {
+  onDelete = (e: any) => {
     // Prevents onClick event of the whole tag from being triggered
     e.preventDefault();
     e.stopPropagation();
     this.props.onDelete(e);
-  },
+  };
 
-  getDeleteBtn() {
+  getDeleteBtn = () => {
     const style = this.props.style || {}
     const deleteStyle = style.delete ? style.delete : {}
 
     return (
-      <span className='cti__tag__delete' onClick={this.onDelete}
-        dangerouslySetInnerHTML={{ __html: '&times;' }}
-        style={deleteStyle}/>
+        <XSVG className='cti__tag__delete' onClick={this.onDelete} /> 
     );
-  },
+  };
 
   render() {
     let deleteBtn = null;
@@ -89,6 +86,10 @@ const Tag = React.createClass({
       </div>
     );
   }
-});
+}
 
-export default Tag;
+TagComponent.defaultProps = {
+  text: ''
+};
+
+export default TagComponent;

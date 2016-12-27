@@ -1,0 +1,153 @@
+@import "../../../styles/colors.css";
+
+.cti__root {
+  float: left;
+  text-align: left;
+  min-width: 350px;
+  max-width: calc(100% - 220px);
+  position: relative;
+}
+
+.cti__input {
+  border: 1px solid transparent;
+  background: transparent;
+  transition: background .1s ease-in, border-color .3s ease-in;
+  padding: 0 5px 0 35px;
+  margin-left: 10px;
+  min-height: 40px;
+  position: relative;
+  &:hover, &.active {
+    background: white;
+    border-color: var(--green400);
+    & .search-icon {
+      fill: var(--green400) !important;
+    }
+  }
+  & .search-icon {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    fill: var(--gray500);
+    transition: fill .1s ease-in;
+  }
+  .cti__input__arrow {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid rgb(140, 140, 140);
+    right: 10px;
+    top: 50%;
+    margin-top: -2px;
+  }
+}
+
+.cti__input__tags, .cti__input__input {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.cti__input__input {
+  height: 40px;
+  border: none;
+  background: none;
+  &::placeholder {
+    color: var(--gray400);
+  }
+}
+
+.cti__tag {
+  background-color: var(--gray50);
+  border: 1px solid var(--gray200);
+  border-radius: 3px;
+  display: inline-block;
+  cursor: pointer;
+  word-break: break-all;
+  max-width: 100%;
+  padding: 0 5px;
+  line-height: 1.5;
+  margin: 5px 5px 0;
+}
+
+.cti__tag__content--match {
+    color: black;
+    font-weight: bold;
+}
+
+.cti__tag__delete, .cti__tag__content, .cti__tag__content > span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.cti__tag__delete {
+  & svg {
+    fill: var(--gray900) !important;
+    position: relative;
+    width: 10px;
+    height: 10px;
+    top: 2px;
+    margin-left: 5px;
+  }
+  &:hover {
+    & svg {
+      fill: var(--green400) !important;
+    }
+  }
+}
+
+.cti__panel {
+  position: absolute;
+  left: 10px;
+  background: white;
+  border: 1px solid var(--green400);
+  width: calc(100% - 10px);
+  box-shadow: 0 4px 8px var(--gray400);
+  z-index: 9997;
+  max-height: 250px;
+  overflow: auto;
+  & .cti__tag {
+    background-color: white;
+    border: 1px solid var(--green400);
+    color: var(--green400);
+    padding: 0 5px;
+    margin: 5px 5px 0 0;
+    &:hover {
+      background-color: var(--green100);
+    }
+  }
+}
+
+.cti__category__add-item {
+    background: transparent;
+    border: none;
+    color: rgb(28, 99, 166);
+    font-size: 1em;
+}
+
+.cti__category__add-item.cti-selected {
+    margin-left: .4em;
+}
+
+.cti__category__or {
+    margin-left: .4em;
+}
+
+.cti-selected {
+    background-color: rgb(229, 241, 255);
+    border: 1px solid rgb(207, 219, 234);
+    border-radius: 3px;
+}
+
+.cti__category {
+  padding: 10px;
+}
+
+.cti__category__title {
+  margin: 5px 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--gray200);
+  color: black;
+  font-size: 14px;
+}

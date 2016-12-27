@@ -1,4 +1,7 @@
-# react-categorized-tag-input [![Build Status](https://travis-ci.org/mvader/react-categorized-tag-input.svg)](https://travis-ci.org/mvader/react-categorized-tag-input)
+# ts-react-categorized-tag-input-plus [![Build Status](https://travis-ci.org/mvader/react-categorized-tag-input.svg)](https://travis-ci.org/mvader/react-categorized-tag-input)
+
+### Note: This is a fork of the excellent 'react-categorized-tag-input' project, converted to use Typescript 2.0 and extended to support 2 different datasets concurrently. This project is a work-in-progress and is not yet suitable for `npm install`!
+
 React.js component for making tag autocompletion inputs with categorized results with no dependencies and 10KB minified.
 
 **Note:** v1.x versions only work with react 0.14.0 or higher. For compatibility with previous versions use the v0.x versions.

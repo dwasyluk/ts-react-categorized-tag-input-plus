@@ -1,81 +1,85 @@
-import React from 'react';
+import * as React from 'react';
 
-import Tag from './Tag.jsx';
+import TagComponent, {Tag} from './TagComponent';
 
-const { PropTypes } = React;
+export interface Category {
+  id: string;
+  type: string;
+  title: string;
+  items: any[];
+  single?: boolean;
+}
 
-const getCreateNewText = (title, text) => `Create new ${title} "${text}"`
+interface CategoryComponentProps {
+  category: string | number;
+  selected: boolean;
+  selectedItem: number;
+  input: string | any; //or any to allow for === checking
+  addNew: boolean;
+  onAdd: Function;
+  getTagStyle?: Function;
+  getCreateNewText?: Function;
 
-const Category = React.createClass({
-  propTypes: {
-    items: PropTypes.array.isRequired,
-    category: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]).isRequired,
-    title: PropTypes.string.isRequired,
-    selected: PropTypes.bool.isRequired,
-    selectedItem: PropTypes.number.isRequired,
-    input: PropTypes.string.isRequired,
-    addNew: PropTypes.bool,
-    type: PropTypes.string,
-    onAdd: PropTypes.func.isRequired,
-    single: PropTypes.bool,
-    getTagStyle: PropTypes.func,
-    getCreateNewText: PropTypes.func
-  },
+  type: string;
+  title: string;
+  items: any[];
+  single?: boolean;
+}
 
-  onAdd(title) {
+export default class CategoryComponent extends React.Component<CategoryComponentProps, {}> {
+  private getCreateNewText = (title: string, text: string) => `Create new ${title} "${text}"`;
+
+  onAdd = (title: string) => {
     return () => {
       this.props.onAdd({
         category: this.props.category,
         title: title
       });
     };
-  },
+  };
 
-  onCreateNew(e) {
+  onCreateNew = (e: any) => {
     e.preventDefault();
     this.onAdd(this.props.input)();
-  },
+  };
 
-  getTagStyle(item) {
+  getTagStyle = (item: Tag) => {
     return this.props.getTagStyle ? this.props.getTagStyle(item) : {}
-  },
+  };
 
-  itemToTag(item, i) {
+  itemToTag = (item: any, i: any) => {
     return (
-      <Tag selected={this.isSelected(i)}
+      <TagComponent selected={this.isSelected(i)}
         input={this.props.input} text={item} addable={true} deletable={false}
         onAdd={this.onAdd(item)} key={item + '_' + i} style={this.getTagStyle(item)} />
     );
-  },
+  };
 
-  fullMatchInItems() {
+  fullMatchInItems = () => {
     for (let i = 0, len = this.props.items.length; i < len; i++) {
       if (this.props.items[i] === this.props.input) {
         return true;
       }
     }
     return false;
-  },
+  };
 
-  getItems() {
+  getItems = () => {
     return {
       items: this.props.items.map(this.itemToTag),
       fullMatch: this.fullMatchInItems(),
     };
-  },
+  };
 
-  isSelected(i) {
+  isSelected = (i: any) => {
     return this.props.selected &&
       (i === this.props.selectedItem || this.props.single);
-  },
+  };
 
-  getAddBtn(fullMatch, selected) {
+  getAddBtn = (fullMatch: boolean, selected: boolean) => {
     const title = this.props.type || this.props.title;
     const text = this.props.input;
-    const getText = this.props.getCreateNewText || getCreateNewText;
+    const getText = this.props.getCreateNewText || this.getCreateNewText;
     if (this.props.addNew && !fullMatch && !this.props.single) {
       return [
         this.props.items.length > 0 ?
@@ -90,7 +94,7 @@ const Category = React.createClass({
     }
 
     return null;
-  },
+  };
 
   render() {
     let { items, fullMatch } = this.getItems();
@@ -110,6 +114,4 @@ const Category = React.createClass({
       </div>
     );
   }
-});
-
-export default Category;
+}
